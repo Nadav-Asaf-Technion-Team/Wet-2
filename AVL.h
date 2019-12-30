@@ -22,7 +22,8 @@ public:
 	AVLTree();
 	~AVLTree();
 	void AddNode(int key, Server* data);
-	Server* FindNode(int key);
+	Server* FindServer(int key);
+	int SumHighestTraffics(int k);
 	Node* removeNode(int key);
 
 };
