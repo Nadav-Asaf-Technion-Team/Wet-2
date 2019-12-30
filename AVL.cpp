@@ -1,73 +1,107 @@
 #include "AVL.h"
-#include <iostream>
-#include <math.h>
 
-template <class T>
-Node<T>::Node(int key, T data) :
-	key(key), data(data), height(0), left(NULL), right(NULL) {
+//this is an STL function so I implemented it myself.
+static int max(int a, int b) {
+	return a > b ? a : b;
 }
 
-template <class T>
-AVLTree<T>::AVLTree() : root(NULL), size(0), height(-1) {}
+Node::Node(int key, Server* data) :
+	key(key), data(data), height(0), left(NULL), right(NULL), subtree_size(1), traffic_sum(data->GetTraffic) {
+}
 
-template <class T>
-static void PostOrderDelete(Node<T>* node) {
+//these three are just to handle null node
+static int GetNodeSubtreeSize(Node* node) {
+	if (!node) return 0;
+	else return node->subtree_size;
+}
+
+static int GetNodeTrafficSum(Node* node) {
+	if (!node) return 0;
+	else return node->traffic_sum;
+}
+
+static int GetNodeHeight(Node* node) {
+	if (!node) return -1;
+	else return node->height;
+}
+
+static void UpdateSumAndSize(Node* node) {
+	node->subtree_size = GetNodeSubtreeSize(node->left) + GetNodeSubtreeSize(node->right) + 1;
+	node->traffic_sum = GetNodeTrafficSum(node->left) + GetNodeTrafficSum(node->right) + node->data->GetTraffic();
+}
+
+AVLTree::AVLTree() : root(NULL), size(0), height(-1) {}
+
+
+static void PostOrderDelete(Node* node) {
 	if (!node) return;
 	PostOrderDelete(node->left);
 	PostOrderDelete(node->right);
 	delete node;
 }
 
-template <class T>
-AVLTree<T>::~AVLTree() {
+
+AVLTree::~AVLTree() {
 	PostOrderDelete(root);
 }
 
-template <class T>
-static Node<T>* rotateLL(Node<T>* root) {
-	Node<T>* newRoot = root->left;
+
+static Node* rotateLL(Node* root) {
+	Node* newRoot = root->left;
 	root->left = newRoot->right;
 	newRoot->right = root;
 	root->height -= 2;
+	UpdateSumAndSize(root);
+	UpdateSumAndSize(newRoot);
 	return newRoot;
 }
 
 
-template <class T>
-static Node<T>* rotateRR(Node<T>* root) {
-	Node<T>* newRoot = root->right;
+
+static Node* rotateRR(Node* root) {
+	Node* newRoot = root->right;
 	root->right = newRoot->left;
 	newRoot->left = root;
 	root->height -= 2;
+	UpdateSumAndSize(root);
+	UpdateSumAndSize(newRoot);
 	return newRoot;
 }
 
-template <class T>
-static Node<T>* rotateLR(Node<T>* root) {
-	Node<T>* newRoot = root->left->right;
-	root->left->right = newRoot->left;
-	newRoot->left = root->left;
+
+static Node* rotateLR(Node* root) {
+	Node* newRoot = root->left->right;
+	Node* temp = root->left;
+	temp->right = newRoot->left;
+	newRoot->left = temp;
 	root->left = newRoot->right;
 	newRoot->right = root;
 	root->height -= 2;
 	newRoot->height += 1;
+	UpdateSumAndSize(root);
+	UpdateSumAndSize(temp);
+	UpdateSumAndSize(newRoot);
 	return newRoot;
 }
 
-template <class T>
-static Node<T>* rotateRL(Node<T>* root) {
-	Node<T>* newRoot = root->right->left;
-	root->right->left = newRoot->right;
-	newRoot->right = root->right;
+
+static Node* rotateRL(Node* root) {
+	Node* newRoot = root->right->left;
+	Node* temp = root->right;
+	temp->left = newRoot->right;
+	newRoot->right = temp;
 	root->right = newRoot->left;
 	newRoot->left = root;
 	root->height -= 2;
 	newRoot->height += 1;
+	UpdateSumAndSize(root);
+	UpdateSumAndSize(temp);
+	UpdateSumAndSize(newRoot);
 	return newRoot;
 }
 
-template <class T>
-Node<T>* CheckAndRotate(Node<T>* root) {
+
+Node* CheckAndRotate(Node* root) {
 	if (root->left->height - root->right->height == 2) {
 		if (root->left->left->height - root->left->right->height >= 0)
 			return rotateLL(root);
@@ -82,33 +116,33 @@ Node<T>* CheckAndRotate(Node<T>* root) {
 		return root;
 }
 
-template <class T>
-Node<T>* insert(int key, T data, Node<T>* root) {
+
+Node* insert(int key, Server* data, Node* root) {
 	if (!root) {
-		root = new Node<T>;
-		root->data = data;
-		root->key = key;
+		root = new Node(key, data);
 	}
 	else if (key < root->key) {
 		root->left = insert(key, data, root->left);
+		UpdateSumAndSize(root);
 		root = CheckAndRotate(root);
 	}
 	else if (key > root->key) {
 		root->right = insert(key, data, root->right);
+		UpdateSumAndSize(root);
 		root = CheckAndRotate(root);
 	}
-	root->height = max(root->left->height, root->right->height) + 1;
+	root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1; 
 	return root;
 	
 }
 
-template <class T>
-void AVLTree<T>::AddNode(int key, T data) {
+
+void AVLTree::AddNode(int key, Server* data) {
 	if (FindNode(key)); //return failure
 	insert(key, data, root);
 }
 
 
 // TODO: static find min and max
-// TODO: static get balance factor
-// TODO: rotation
+
+
