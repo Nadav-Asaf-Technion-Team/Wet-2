@@ -9,12 +9,12 @@ int main() {
 	Server* s6 = new Server(6, 1);
 	Server* s7 = new Server(7, 1);
 	AVLTree* test_tree = new AVLTree();
-	test_tree->AddNode(s1->GetID(), s1);
+	test_tree->AddNode(s4->GetID(), s4);
+	test_tree->AddNode(s6->GetID(), s6);
+	test_tree->AddNode(s5->GetID(), s5);
 	test_tree->AddNode(s2->GetID(), s2);
 	test_tree->AddNode(s3->GetID(), s3);
-	test_tree->AddNode(s4->GetID(), s4);
-	test_tree->AddNode(s5->GetID(), s5);
-	test_tree->AddNode(s6->GetID(), s6);
+	test_tree->AddNode(s1->GetID(), s1);
 	test_tree->AddNode(s7->GetID(), s7);
 	return 0;
 }

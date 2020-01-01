@@ -78,6 +78,7 @@ static Node* rotateLR(Node* root) {
 	newRoot->right = root;
 	root->height -= 2;
 	newRoot->height += 1;
+	temp->height -= 1;
 	UpdateSumAndSize(root);
 	UpdateSumAndSize(temp);
 	UpdateSumAndSize(newRoot);
@@ -94,6 +95,7 @@ static Node* rotateRL(Node* root) {
 	newRoot->left = root;
 	root->height -= 2;
 	newRoot->height += 1;
+	temp->height -= 1;
 	UpdateSumAndSize(root);
 	UpdateSumAndSize(temp);
 	UpdateSumAndSize(newRoot);
@@ -102,13 +104,13 @@ static Node* rotateRL(Node* root) {
 
 
 Node* CheckAndRotate(Node* root) {
-	if (root->left->height - root->right->height == 2) {
-		if (root->left->left->height - root->left->right->height >= 0)
+	if (GetNodeHeight(root->left) - GetNodeHeight(root->right) == 2) {
+		if (GetNodeHeight(root->left->left) - GetNodeHeight(root->left->right) >= 0)
 			return rotateLL(root);
 		else return rotateLR(root);
 	}
-	else if (root->left->height - root->right->height == -2) {
-		if (root->right->left->height - root->right->right->height <= 0)
+	else if (GetNodeHeight(root->left) - GetNodeHeight(root->right) == -2) {
+		if (GetNodeHeight(root->right->left) - GetNodeHeight(root->right->right) <= 0)
 			return rotateRR(root);
 		else return rotateRL(root);
 	}
@@ -120,18 +122,20 @@ Node* CheckAndRotate(Node* root) {
 Node* insert(int key, Server* data, Node* root) {
 	if (!root) {
 		root = new Node(key, data);
+		root->height = 0;
 	}
 	else if (key < root->key) {
 		root->left = insert(key, data, root->left);
 		UpdateSumAndSize(root);
+		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
 	else if (key > root->key) {
 		root->right = insert(key, data, root->right);
 		UpdateSumAndSize(root);
+		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
-	root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1; 
 	return root;
 	
 }
