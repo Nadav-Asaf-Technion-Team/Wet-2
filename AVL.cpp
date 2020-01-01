@@ -210,7 +210,7 @@ int AVLTree::GetSize() {
 	return root ? root->subtree_size : 0;
 }
 
-//probably don't need this
+
 Server* AVLTree::FindServer(int key) {
 	Node* current = root;
 	while (current) {
@@ -249,7 +249,5 @@ void PrintUtil(Node* root, int space) {
 void AVLTree::PrintTree() {
 	PrintUtil(root, 0);
 }
-
-// TODO: static find min and max
 
 
