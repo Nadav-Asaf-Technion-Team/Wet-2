@@ -24,6 +24,6 @@ public:
 	int SumHighestTraffics(int k);
 	void RemoveNode(Server* data);
 	int GetSize();
-
+	void PrintTree();
 };
 

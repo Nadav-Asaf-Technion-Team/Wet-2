@@ -1,5 +1,10 @@
 #include "AVL.h"
 #include <assert.h>
+#include <iostream>
+using std::endl;
+using std::cout;
+
+#define COUNT 10
 
 //this is an STL function so I implemented it myself.
 static int max(int a, int b) {
@@ -217,6 +222,32 @@ Server* AVLTree::FindServer(int key) {
 	}
 	if (current) return current->data;
 	else return NULL;
+}
+
+void PrintUtil(Node* root, int space) {
+	// Base case  
+	if (root == NULL)
+		return;
+
+	// Increase distance between levels  
+	space += COUNT;
+
+	// Process right child first  
+	PrintUtil(root->right, space);
+
+	// Print current node after space  
+	// count  
+	cout << endl;
+	for (int i = COUNT; i < space; i++)
+		cout << " ";
+	cout << root->data->GetTraffic() << "\n";
+
+	// Process left child  
+	PrintUtil(root->left, space);
+}
+
+void AVLTree::PrintTree() {
+	PrintUtil(root, 0);
 }
 
 // TODO: static find min and max
