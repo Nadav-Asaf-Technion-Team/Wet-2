@@ -139,7 +139,7 @@ Node* insert(int key, Server* data, Node* root) {
 
 void AVLTree::AddNode(int key, Server* data) {
 	if (FindServer(key)); //return failure
-	insert(key, data, root);
+	root = insert(key, data, root);
 	size++;
 }
 
@@ -152,7 +152,8 @@ Server* AVLTree::FindServer(int key) {
 		else
 			current = current->left;
 	}
-	return current->data;
+	if (current) return current->data;
+	else return NULL;
 }
 
 // TODO: static find min and max
