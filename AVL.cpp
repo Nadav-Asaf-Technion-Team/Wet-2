@@ -6,7 +6,7 @@ static int max(int a, int b) {
 }
 
 Node::Node(int key, Server* data) :
-	key(key), data(data), height(0), left(NULL), right(NULL), subtree_size(1), traffic_sum(data->GetTraffic) {
+	key(key), data(data), height(0), left(NULL), right(NULL), subtree_size(1), traffic_sum(data->GetTraffic()) {
 }
 
 //these three are just to handle null nodes
