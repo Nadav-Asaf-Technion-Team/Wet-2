@@ -16,15 +16,14 @@ public:
 class AVLTree {
 private:
 	Node* root;
-	int size;
-	int height;
 public:
 	AVLTree();
 	~AVLTree();
-	void AddNode(Server* data);
+	void AddServer(Server* data);
 	Server* FindServer(int key); //probably don't need this
 	int SumHighestTraffics(int k);
-	void removeNode(Server* data);
+	void RemoveNode(Server* data);
+	int GetSize();
 
 };
 

@@ -31,7 +31,7 @@ static void UpdateSumAndSize(Node* node) {
 	node->traffic_sum = GetNodeTrafficSum(node->left) + GetNodeTrafficSum(node->right) + node->data->GetTraffic();
 }
 
-AVLTree::AVLTree() : root(NULL), size(0), height(-1) {}
+AVLTree::AVLTree() : root(NULL) {}
 
 
 static void PostOrderDelete(Node* node) {
@@ -57,7 +57,7 @@ static Node* rotateLL(Node* root) {
 }
 
 //returns positive value if server > node, 9 if equal
-static bool compareServerToNode(Server& server, Node& node) {
+static int compareServerToNode(Server& server, Node& node) {
 	if (server.GetTraffic() - node.key == 0) {
 		return server.GetID() - node.data->GetID();
 	}
@@ -131,6 +131,7 @@ static Node* FindMin(Node* node) {
 }
  
 Node* insert(Server* data, Node* root) {
+	if (root) assert(compareServerToNode(*data, *root) != 0);
 	if (!root) {
 		root = new Node(data->GetTraffic(), data);
 		root->height = 0;
@@ -147,14 +148,12 @@ Node* insert(Server* data, Node* root) {
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
-	assert(compareServerToNode(*data, *root) != 0);
 	return root;
 	
 }
 
-void AVLTree::AddNode(Server* data) {
+void AVLTree::AddServer(Server* data) {
 	root = insert(data, root);
-	size++;
 }
 
 //returns null if server isn't in the tree.
@@ -198,10 +197,12 @@ Node* remove(Server* data, Node* node) {
 
 }
 
-void AVLTree::removeNode(Server* data) {
-	if (remove(data, root)) {
-		size--;
-	}
+void AVLTree::RemoveNode(Server* data) {
+	root = remove(data, root);
+}
+
+int AVLTree::GetSize() {
+	return root ? root->subtree_size : 0;
 }
 
 //probably don't need this
