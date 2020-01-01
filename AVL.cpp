@@ -56,13 +56,12 @@ static Node* rotateLL(Node* root) {
 	return newRoot;
 }
 
-//returns true if server > node
+//returns positive value if server > node, 9 if equal
 static bool compareServerToNode(Server& server, Node& node) {
-	if (server.GetTraffic() > node.key) return true;
-	else if (server.GetTraffic() < node.key) return false;
-	else {
-		return server.GetID() > node.data->GetID();
+	if (server.GetTraffic() - node.key == 0) {
+		return server.GetID() - node.data->GetID();
 	}
+	else return server.GetTraffic() - node.key;
 }
 
 static Node* rotateRR(Node* root) {
@@ -109,7 +108,7 @@ static Node* rotateRL(Node* root) {
 	return newRoot;
 }
 
-
+//NOT a recursive function
 Node* CheckAndRotate(Node* root) {
 	if (GetNodeHeight(root->left) - GetNodeHeight(root->right) == 2) {
 		if (GetNodeHeight(root->left->left) - GetNodeHeight(root->left->right) >= 0)
@@ -136,18 +135,19 @@ Node* insert(Server* data, Node* root) {
 		root = new Node(data->GetTraffic(), data);
 		root->height = 0;
 	}
-	else if (!compareServerToNode(*data, *root)) {
+	else if (compareServerToNode(*data, *root) < 0) {
 		root->left = insert(data, root->left);
 		UpdateSumAndSize(root);
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
-	else if (compareServerToNode(*data, *root)) {
+	else if (compareServerToNode(*data, *root) > 0) {
 		root->right = insert(data, root->right);
 		UpdateSumAndSize(root);
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
+	assert(compareServerToNode(*data, *root) != 0);
 	return root;
 	
 }
@@ -165,16 +165,37 @@ Node* remove(Server* data, Node* node) {
 	if (!node) return NULL;
 
 	//searching
-	else if (!compareServerToNode(*data, *node)) {
+	else if (compareServerToNode(*data, *node) < 0) {
 		node->left = remove(data, node->left);
 	}
-	else if (compareServerToNode(*data, *node)) {
+	else if (compareServerToNode(*data, *node) > 0) {
 		node->right = remove(data, node->right);
 	}
 
 	//found
 	//2 children
-	else if(node->left
+	else if (node->left && node->right) {
+		temp = FindMin(node->right);
+		node->key = temp->key;
+		node->data = temp->data;
+		node->right = remove(node->data, node->right);
+	}
+	//one or no children
+	else {
+		temp = node;
+		if (!node->left)
+			node = node->right;
+		else if (!node->right)
+			node = node->left;
+		delete temp;
+	}
+	if (!node) return node;
+
+	node->height = max(GetNodeHeight(node->left), GetNodeHeight(node->right)) + 1;
+	UpdateSumAndSize(node);
+	node = CheckAndRotate(node);
+	return node;
+
 }
 
 void AVLTree::removeNode(Server* data) {
