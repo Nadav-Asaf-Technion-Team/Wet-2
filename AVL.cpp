@@ -136,7 +136,7 @@ Node* insert(int key, Server* data, Node* root) {
 	
 }
 
-
+//consider having AddNode recieve only data, and get key from data->traffic
 void AVLTree::AddNode(int key, Server* data) {
 	if (FindServer(key)); //return failure
 	insert(key, data, root);
@@ -152,7 +152,8 @@ Server* AVLTree::FindServer(int key) {
 		else
 			current = current->left;
 	}
-	return current->data;
+	if (current) return current->data;
+	else return NULL;
 }
 
 // TODO: static find min and max
