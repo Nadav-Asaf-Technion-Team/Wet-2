@@ -1,3 +1,11 @@
+#include "AVL.h"
+
+int main() {
+	Server* s1 = new Server(1, 1);
+
+	return 0;
+}
+
 //#include "UnionFind.h"
 //
 //int main() {
