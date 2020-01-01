@@ -125,19 +125,19 @@ Node* CheckAndRotate(Node* root) {
 }
 
  
-Node* insert(int key, Server* data, Node* root) {
+Node* insert(Server* data, Node* root) {
 	if (!root) {
-		root = new Node(key, data);
+		root = new Node(data->GetTraffic(), data);
 		root->height = 0;
 	}
-	else if (key < root->key) {
-		root->left = insert(key, data, root->left);
+	else if (!compareServerToNode(*data, *root)) {
+		root->left = insert(data, root->left);
 		UpdateSumAndSize(root);
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
-	else if (key >= root->key) {
-		root->right = insert(key, data, root->right);
+	else if (compareServerToNode(*data, *root)) {
+		root->right = insert(data, root->right);
 		UpdateSumAndSize(root);
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
@@ -148,7 +148,7 @@ Node* insert(int key, Server* data, Node* root) {
 
 //consider having AddNode recieve only data, and get key from data->traffic
 void AVLTree::AddNode(int key, Server* data) {
-	root = insert(key, data, root);
+	root = insert(data, root);
 	size++;
 }
 
