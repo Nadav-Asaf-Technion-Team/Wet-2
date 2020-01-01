@@ -45,7 +45,6 @@ AVLTree::~AVLTree() {
 	PostOrderDelete(root);
 }
 
-
 static Node* rotateLL(Node* root) {
 	Node* newRoot = root->left;
 	root->left = newRoot->right;
@@ -56,7 +55,14 @@ static Node* rotateLL(Node* root) {
 	return newRoot;
 }
 
-
+//returns true if server > node
+static bool compareServerToNode(Server& server, Node& node) {
+	if (server.GetTraffic() > node.key) return true;
+	else if (server.GetTraffic() < node.key) return false;
+	else {
+		return server.GetID() > node.data->GetID();
+	}
+}
 
 static Node* rotateRR(Node* root) {
 	Node* newRoot = root->right;
