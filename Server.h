@@ -11,5 +11,6 @@ public:
 	~Server() = default;
 	int GetID();
 	int GetTraffic();
+	void SetTraffic(int new_traffic);
 	int GetDCID();
 };
