@@ -9,7 +9,7 @@ Node::Node(int key, Server* data) :
 	key(key), data(data), height(0), left(NULL), right(NULL), subtree_size(1), traffic_sum(data->GetTraffic) {
 }
 
-//these three are just to handle null node
+//these three are just to handle null nodes
 static int GetNodeSubtreeSize(Node* node) {
 	if (!node) return 0;
 	else return node->subtree_size;
@@ -140,6 +140,7 @@ Node* insert(int key, Server* data, Node* root) {
 void AVLTree::AddNode(int key, Server* data) {
 	if (FindServer(key)); //return failure
 	insert(key, data, root);
+	size++;
 }
 
 Server* AVLTree::FindServer(int key) {
