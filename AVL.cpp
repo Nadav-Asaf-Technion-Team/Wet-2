@@ -116,7 +116,7 @@ Node* CheckAndRotate(Node* root) {
 		return root;
 }
 
-
+ 
 Node* insert(int key, Server* data, Node* root) {
 	if (!root) {
 		root = new Node(key, data);
@@ -139,7 +139,7 @@ Node* insert(int key, Server* data, Node* root) {
 //consider having AddNode recieve only data, and get key from data->traffic
 void AVLTree::AddNode(int key, Server* data) {
 	if (FindServer(key)); //return failure
-	insert(key, data, root);
+	root = insert(key, data, root);
 	size++;
 }
 
