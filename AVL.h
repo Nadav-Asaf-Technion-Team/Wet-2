@@ -21,10 +21,10 @@ private:
 public:
 	AVLTree();
 	~AVLTree();
-	void AddNode(int key, Server* data);
+	void AddNode(Server* data);
 	Server* FindServer(int key); //probably don't need this
 	int SumHighestTraffics(int k);
-	Node* removeNode(int key);
+	void removeNode(Server* data);
 
 };
 

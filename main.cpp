@@ -4,10 +4,17 @@ int main() {
 	Server* s1 = new Server(1, 1);
 	Server* s2 = new Server(2, 1);
 	Server* s3 = new Server(3, 1);
-	Server* s4 = new Server(3, 1);
+	Server* s4 = new Server(4, 1);
 	Server* s5 = new Server(5, 1);
 	Server* s6 = new Server(6, 1);
 	Server* s7 = new Server(7, 1);
+	s1->SetTraffic(1);
+	s2->SetTraffic(2);
+	s3->SetTraffic(3);
+	s4->SetTraffic(3);
+	s5->SetTraffic(5);
+	s6->SetTraffic(6);
+	s7->SetTraffic(7);
 	AVLTree* test_tree = new AVLTree();
 	test_tree->AddNode(s4->GetID(), s4);
 	test_tree->AddNode(s6->GetID(), s6);

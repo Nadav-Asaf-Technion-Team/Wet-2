@@ -1,4 +1,5 @@
 #include "AVL.h"
+#include <assert.h>
 
 //this is an STL function so I implemented it myself.
 static int max(int a, int b) {
@@ -124,6 +125,11 @@ Node* CheckAndRotate(Node* root) {
 		return root;
 }
 
+static Node* FindMin(Node* node) {
+	if (!node) return NULL;
+	else if (!(node->left)) return node;
+	else return FindMin(node->left);
+}
  
 Node* insert(Server* data, Node* root) {
 	if (!root) {
@@ -146,10 +152,35 @@ Node* insert(Server* data, Node* root) {
 	
 }
 
-//consider having AddNode recieve only data, and get key from data->traffic
-void AVLTree::AddNode(int key, Server* data) {
+void AVLTree::AddNode(Server* data) {
 	root = insert(data, root);
 	size++;
+}
+
+//returns null if server isn't in the tree.
+Node* remove(Server* data, Node* node) {
+	Node* temp;
+	
+	//not found
+	if (!node) return NULL;
+
+	//searching
+	else if (!compareServerToNode(*data, *node)) {
+		node->left = remove(data, node->left);
+	}
+	else if (compareServerToNode(*data, *node)) {
+		node->right = remove(data, node->right);
+	}
+
+	//found
+	//2 children
+	else if(node->left
+}
+
+void AVLTree::removeNode(Server* data) {
+	if (remove(data, root)) {
+		size--;
+	}
 }
 
 //probably don't need this
