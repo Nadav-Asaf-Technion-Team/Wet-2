@@ -4,7 +4,7 @@ int main() {
 	Server* s1 = new Server(1, 1);
 	Server* s2 = new Server(2, 1);
 	Server* s3 = new Server(3, 1);
-	Server* s4 = new Server(4, 1);
+	Server* s4 = new Server(3, 1);
 	Server* s5 = new Server(5, 1);
 	Server* s6 = new Server(6, 1);
 	Server* s7 = new Server(7, 1);

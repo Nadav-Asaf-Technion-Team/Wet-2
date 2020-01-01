@@ -130,7 +130,7 @@ Node* insert(int key, Server* data, Node* root) {
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
 		root = CheckAndRotate(root);
 	}
-	else if (key > root->key) {
+	else if (key >= root->key) {
 		root->right = insert(key, data, root->right);
 		UpdateSumAndSize(root);
 		root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
@@ -142,11 +142,11 @@ Node* insert(int key, Server* data, Node* root) {
 
 
 void AVLTree::AddNode(int key, Server* data) {
-	if (FindServer(key)); //return failure
 	root = insert(key, data, root);
 	size++;
 }
 
+//probably don't need this
 Server* AVLTree::FindServer(int key) {
 	Node* current = root;
 	while (current) {
