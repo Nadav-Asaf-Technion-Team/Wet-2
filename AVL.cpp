@@ -116,7 +116,7 @@ Node* CheckAndRotate(Node* root) {
 		return root;
 }
 
-
+//this is test
 Node* insert(int key, Server* data, Node* root) {
 	if (!root) {
 		root = new Node(key, data);
