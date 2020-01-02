@@ -1,3 +1,6 @@
+#ifndef AVLTREE_H_
+#define AVLTREE_H_
+
 #include <iostream>
 #include "Server.h"
 #include "ReturnValues.h"
@@ -28,3 +31,4 @@ public:
 	void PrintTree();
 };
 
+#endif

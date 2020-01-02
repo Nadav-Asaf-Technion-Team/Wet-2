@@ -55,8 +55,7 @@ int main() {
 	test_tree->AddServer(s12);
 	test_tree->AddServer(s11);
 	test_tree->PrintTree();
-	for (int i = 1; i < 14; i++) {
-		std::cout << test_tree->SumHighestTraffics(i) << "\n";
-	}
+	test_tree->RemoveNode(s8);
+	test_tree->PrintTree();
 	return 0;
 }

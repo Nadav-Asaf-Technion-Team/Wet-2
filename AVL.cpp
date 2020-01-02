@@ -136,7 +136,6 @@ static Node* FindMin(Node* node) {
 }
  
 Node* insert(Server* data, Node* root) {
-	if (root) assert(compareServerToNode(*data, *root) != 0);
 	if (!root) {
 		root = new Node(data->GetTraffic(), data);
 		root->height = 0;
@@ -158,6 +157,7 @@ Node* insert(Server* data, Node* root) {
 }
 
 void AVLTree::AddServer(Server* data) {
+	assert(FindServer(data) == NULL);
 	root = insert(data, root);
 }
 
@@ -204,8 +204,7 @@ Node* remove(Server* data, Node* node) {
 
 //should return error
 void AVLTree::RemoveNode(Server* data) {
-	if (!FindServer(data))
-		return;
+	assert(FindServer(data) != NULL);
 	root = remove(data, root);
 }
 
