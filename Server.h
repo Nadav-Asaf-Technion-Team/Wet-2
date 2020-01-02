@@ -1,3 +1,6 @@
+#ifndef SERVER_H_
+#define SERVER_H_
+
 #include <iostream>
 #include <algorithm>
 
@@ -14,3 +17,5 @@ public:
 	void SetTraffic(int new_traffic);
 	int GetDCID();
 };
+
+#endif

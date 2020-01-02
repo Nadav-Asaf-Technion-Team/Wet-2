@@ -202,7 +202,10 @@ Node* remove(Server* data, Node* node) {
 
 }
 
+//should return error
 void AVLTree::RemoveNode(Server* data) {
+	if (!FindServer(data))
+		return;
 	root = remove(data, root);
 }
 
@@ -211,11 +214,11 @@ int AVLTree::GetSize() {
 }
 
 
-Server* AVLTree::FindServer(int key) {
+Server* AVLTree::FindServer(Server* data) {
 	Node* current = root;
 	while (current) {
-		if (current->key == key) break;
-		else if (current->key < key)
+		if (compareServerToNode(*data, *current) == 0) break;
+		else if (compareServerToNode(*data, *current) > 0)
 			current = current->right;
 		else
 			current = current->left;

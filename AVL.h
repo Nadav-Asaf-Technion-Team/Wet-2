@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Server.h"
+#include "ReturnValues.h"
 
 class Node {
 public:
@@ -20,7 +21,7 @@ public:
 	AVLTree();
 	~AVLTree();
 	void AddServer(Server* data);
-	Server* FindServer(int key); //need to fix this and use in RemoveNode
+	Server* FindServer(Server* data); //need to fix this and use in RemoveNode
 	int SumHighestTraffics(int k);
 	void RemoveNode(Server* data);
 	int GetSize();
