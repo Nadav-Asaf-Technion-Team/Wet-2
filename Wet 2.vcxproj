@@ -125,10 +125,12 @@
   <ItemGroup>
     <ClCompile Include="AVL.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="UnionFind.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AVL.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="UnionFind.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

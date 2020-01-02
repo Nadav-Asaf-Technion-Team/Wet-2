@@ -1,6 +1,6 @@
 #pragma once
 
-//T need to be a pointer...
+//T need to be a pointer...?
 template <class T>
 class Node {
 public:
