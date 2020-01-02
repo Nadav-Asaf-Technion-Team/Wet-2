@@ -124,12 +124,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AVL.cpp" />
+    <ClCompile Include="DataCenter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="UnionFind.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AVL.h" />
+    <ClInclude Include="DataCenter.h" />
     <ClInclude Include="library2.h" />
     <ClInclude Include="ReturnValues.h" />
     <ClInclude Include="Server.h" />

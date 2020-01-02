@@ -27,6 +27,9 @@
     <ClCompile Include="Server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataCenter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AVL.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ReturnValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
