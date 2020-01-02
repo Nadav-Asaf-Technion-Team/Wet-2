@@ -252,7 +252,7 @@ void AVLTree::PrintTree() {
 
 int AVLTree::SumHighestTraffics(int k) {
 	if (k >= root->subtree_size) 
-		return root->subtree_size;
+		return root->traffic_sum;
 	Node* current = root;
 	int total_sum = 0, total_nodes = 0;
 	while (1) {
