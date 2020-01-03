@@ -1,26 +1,34 @@
-template <class T>
+#ifndef AVLTREE_H_
+#define AVLTREE_H_
+
+#include <iostream>
+#include "Server.h"
+#include "ReturnValues.h"
+
 class Node {
 public:
 	int key;
-	T data;
+	Server* data;
 	int height;
 	Node* left;
 	Node* right;
-	Node(int key, T data);
+	int subtree_size;
+	int traffic_sum;
+	Node(int key, Server* data);
 };
 
-template <class T>
 class AVLTree {
 private:
-	Node<T>* root;
-	int size;
-	int height;
+	Node* root;
 public:
 	AVLTree();
 	~AVLTree();
-	void AddNode(int key, T data);
-	T FindNode(int key);
-	Node<T>* removeNode(int key);
-
+	void AddServer(Server* data);
+	Server* FindServer(Server* data); //need to fix this and use in RemoveNode
+	int SumHighestTraffics(int k);
+	void RemoveNode(Server* data);
+	int GetSize();
+	void PrintTree();
 };
 
+#endif
