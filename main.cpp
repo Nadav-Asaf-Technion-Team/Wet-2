@@ -1,23 +1,54 @@
 #include "UnionFind.h"
+#include "AVL.h"
+#include "DataCenter.h"
+#include "HashTable.h"
+using std::cout;
 
-int main() {
-	UnionFind<int>* UN;
-	UN = new UnionFind<int>(10);
-	UN->print();
-	UN->Union(1, 2);
-	UN->Union(3, 4);
-	UN->Union(3, 2);
-	UN->Union(6, 9);
-	UN->Union(9, 5);
-	UN->Union(1, 9);
-	UN->Union(7, 8);
-	UN->print();
-}
 
-//#include "AVL.h"
-//#include "DataCenter.h"
-//using std::cout;
-//
+////testing HashTable
+//int main() {
+//	hashTable<int>* table;
+//	table = new hashTable<int>(10);
+//	table->print();
+//	int a[10] = { 0,1,2,3,4,5,6,7,8,9 };
+//	table->add(a, 0);
+//	table->add(a+1, 2);
+//	table->add(a + 2, 12);
+//	table->add(a + 3, 11);
+//	table->add(a + 4, 100);
+//	table->add(a + 5, 7);
+//	table->add(a + 6, 6);
+//	table->add(a + 7, 122);
+//	table->add(a + 8, 4);
+//	table->print();
+//	table->add(a + 9, 9);
+//	table->print();
+//	table->remove(0);
+//	table->remove(4);
+//	table->remove(6);
+//	table->remove(122);
+//	table->print();
+//	table->remove(100);
+//	table->print();
+//}
+
+//// testing UnionFind
+//int main() {
+//	UnionFind<int>* UN;
+//	UN = new UnionFind<int>(10);
+//	UN->print();
+//	UN->Union(1, 2);
+//	UN->Union(3, 4);
+//	UN->Union(3, 2);
+//	UN->Union(6, 9);
+//	UN->Union(9, 5);
+//	UN->Union(1, 9);
+//	UN->Union(7, 8);
+//	UN->print();
+//}
+
+
+////testing AVLtree
 //int main() {
 //	Server* s1 = new Server(1, 1);
 //	Server* s2 = new Server(2, 1);

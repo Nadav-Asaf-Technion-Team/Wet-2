@@ -7,15 +7,15 @@ using std::cin;
 using std::endl;
 
 template <class T>
-Node<T>::Node(int ID, T data):
+UFNode<T>::UFNode(int ID, T data):
 	father(NULL), ID(ID), size(1), data(data) {
 }
 
 template <class T>
 UnionFind<T>::UnionFind(int size) : size(size) {
-	array = new Node<T>*[size];
+	array = new UFNode<T>*[size];
 	for (int i = 0; i < size; i++) {
-		array[i] = new Node<T>(i, NULL);
+		array[i] = new UFNode<T>(i, NULL);
 	}
 }
 
@@ -28,11 +28,11 @@ UnionFind<T>::~UnionFind() {
 }
 
 template <class T>
-Node<T>* UnionFind<T>::Find(int ID) {
-	Node<T>* node = array[ID];
+UFNode<T>* UnionFind<T>::Find(int ID) {
+	UFNode<T>* node = array[ID];
 	if (node->father == NULL) return node;
-	Node<T>* anccestor = node;
-	Node<T>* temp = node->father;
+	UFNode<T>* anccestor = node;
+	UFNode<T>* temp = node->father;
 	while (anccestor->father != NULL) {
 		anccestor = anccestor->father;
 	}
@@ -45,9 +45,9 @@ Node<T>* UnionFind<T>::Find(int ID) {
 }
 
 template<class T>
-Node<T>* UnionFind<T>::Union(int ID1, int ID2) {
-	Node<T>* node1 = Find(ID1);
-	Node<T>* node2 = Find(ID2);
+UFNode<T>* UnionFind<T>::Union(int ID1, int ID2) {
+	UFNode<T>* node1 = Find(ID1);
+	UFNode<T>* node2 = Find(ID2);
 	if (node1 == node2) return node1;
 	if (node1->size >= node2->size) {
 		node1->size += node2->size;
@@ -68,13 +68,13 @@ template <class T>
 void UnionFind<T>::print() {
 	cout << "the singeltons are:" << endl;
 	for (int i = 0; i < size; i++) {
-		Node<T>* temp = array[i];
+		UFNode<T>* temp = array[i];
 		cout << '{' << temp->ID;
 		cout << '}';
 	}
 	cout << endl;
 	cout << "the groups are:" << endl;
-	Node<T>** tempArray = new Node<T>*[size];
+	UFNode<T>** tempArray = new UFNode<T>*[size];
 	for (int k = 0; k < size; k++) {
 		tempArray[k] = array[k];
 	}
@@ -82,9 +82,9 @@ void UnionFind<T>::print() {
 		while (tempArray[i] == NULL) i++;
 		if (i >= size) break;
 		cout << '{';
-		Node<T>* node = tempArray[i];
-		Node<T>* common_anccestor = node;
-		Node<T>* temp = node->father;
+		UFNode<T>* node = tempArray[i];
+		UFNode<T>* common_anccestor = node;
+		UFNode<T>* temp = node->father;
 		while (common_anccestor->father != NULL) {
 			common_anccestor = common_anccestor->father;
 		}
@@ -92,7 +92,7 @@ void UnionFind<T>::print() {
 		for (int j = i; j < size; j++) {
 			while (tempArray[j] == NULL) j++;
 			if (j >= size) break;
-			Node<T>* anccestor = tempArray[j];
+			UFNode<T>* anccestor = tempArray[j];
 			while (anccestor->father != NULL) {
 				anccestor = anccestor->father;
 			}

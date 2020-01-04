@@ -2,25 +2,25 @@
 
 //T need to be a pointer...?
 template <class T>
-class Node {
+class UFNode {
 public:
-	Node* father;
+	UFNode* father;
 	int ID;
 	int size;
 	T data;
-	Node(int ID,T data);
+	UFNode(int ID,T data);
 };
 
 template <class T>
 class UnionFind {
 private:
-	Node<T>** array;
+	UFNode<T>** array;
 	int size;
 public:
 	UnionFind(int size);
 	~UnionFind();
-	Node<T>* Find(int ID);
-	Node<T>* Union(int ID1, int ID2);
+	UFNode<T>* Find(int ID);
+	UFNode<T>* Union(int ID1, int ID2);
 	void insert(int ID, T data);
 	void print();
 };
