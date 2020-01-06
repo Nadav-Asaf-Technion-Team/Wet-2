@@ -97,6 +97,7 @@ static void PostOrderDelete(Node* node) {
 	PostOrderDelete(node->left);
 	PostOrderDelete(node->right);
 	delete node;
+	node = NULL;
 }
 
 
@@ -245,6 +246,7 @@ Node* remove(Server* data, Node* node) {
 		else if (!node->right)
 			node = node->left;
 		delete temp;
+		temp = NULL;
 	}
 	if (!node) return node;
 
@@ -346,6 +348,7 @@ AVLTree* MergeTrees(AVLTree* t1, AVLTree* t2) {
 	delete[] arr2;
 	AVLTree* mergedTree = new AVLTree();
 	mergedTree->root = ArrayToTree(merged_arr, 0, t1->GetSize() + t2->GetSize() - 1);
+	delete[] merged_arr;
 	return mergedTree;
 }
 

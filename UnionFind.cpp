@@ -35,7 +35,7 @@ UnionFind<T>::~UnionFind() {
 
 template <class T>
 UFNode<T>* UnionFind<T>::Find(int ID) {
-	UFNode<T>* node = array[ID];
+	UFNode<T>* node = array[ID - 1];
 	if (node->father == NULL) return node;
 	UFNode<T>* anccestor = node;
 	UFNode<T>* temp = node->father;
@@ -67,7 +67,7 @@ UFNode<T>* UnionFind<T>::Union(int ID1, int ID2) {
 
 template <class T>
 void UnionFind<T>::insert(int ID, T data) {
-	Find(ID - 1)->data = data;
+	Find(ID)->data = data;
 }
 
 template <class T>
@@ -90,7 +90,6 @@ void UnionFind<T>::print() {
 		cout << '{';
 		UFNode<T>* node = tempArray[i];
 		UFNode<T>* common_anccestor = node;
-		UFNode<T>* temp = node->father;
 		while (common_anccestor->father != NULL) {
 			common_anccestor = common_anccestor->father;
 		}

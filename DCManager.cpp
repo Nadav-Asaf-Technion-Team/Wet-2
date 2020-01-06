@@ -62,6 +62,7 @@ Status DCManager::RemoveServer(int id) {
 		traffic_servers->RemoveNode(to_remove);
 	}
 	ServersTable->remove(id);
+	return _SUCCESS;
 }
 
 Status DCManager::SetTraffic(int id, int traffic) {
