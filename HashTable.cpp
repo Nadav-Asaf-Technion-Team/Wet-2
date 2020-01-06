@@ -61,7 +61,10 @@ ChainNode<T>* hashTable<T>::findNode(int ID) {
 
 template<class T>
 T* hashTable<T>::find(int ID) {
-	return findNode(ID)->data;
+	ChainNode<T>* temp = findNode(ID);
+	if (temp == NULL)
+		return NULL;
+	return temp->data;
 }
 
 //need revisment

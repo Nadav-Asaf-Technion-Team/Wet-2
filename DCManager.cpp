@@ -1,4 +1,6 @@
 #include "DCManager.h"
+using std::cout;
+using std::endl;
 
 static bool InRange(int x, int range) {
 	return (x > 0 && x <= range);

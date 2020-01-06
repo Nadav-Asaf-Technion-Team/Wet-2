@@ -52,9 +52,11 @@ static Node* ArrayToTree(Server** arr, int start, int end) {
 	}
 	int mid = (start + end) / 2;
 	Node* root = new Node(arr[mid]->GetTraffic(), arr[mid]);
-
 	root->left = ArrayToTree(arr, start, mid - 1);
 	root->right = ArrayToTree(arr, mid + 1, end);
+	root->height = max(GetNodeHeight(root->left), GetNodeHeight(root->right)) + 1;
+	root->subtree_size = GetNodeSubtreeSize(root->left) + GetNodeSubtreeSize(root->right) + 1;
+	root->traffic_sum = GetNodeTrafficSum(root->left) + GetNodeTrafficSum(root->right) + root->key;
 	return root;
 }
 
@@ -293,7 +295,7 @@ void PrintUtil(Node* root, int space) {
 	cout << endl;
 	for (int i = COUNT; i < space; i++)
 		cout << " ";
-	cout << root->data->GetTraffic() << "\n";
+	cout << root->data->GetTraffic() << ", " << root->data->GetID() << endl;
 
 	// Process left child  
 	PrintUtil(root->left, space);
