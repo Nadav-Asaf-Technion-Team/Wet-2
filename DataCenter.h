@@ -1,4 +1,5 @@
 #ifndef DATACENTER_H_
+#define DATACENTER_H_
 #include "AVL.h"
 
 class DataCenter {

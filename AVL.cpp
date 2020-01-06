@@ -36,6 +36,57 @@ static void UpdateSumAndSize(Node* node) {
 	node->traffic_sum = GetNodeTrafficSum(node->left) + GetNodeTrafficSum(node->right) + node->data->GetTraffic();
 }
 
+//Stores a tree in an array - in order
+static void TreeToArray(Node* root, Server** arr, int* index) {
+	if (root == NULL)
+		return;
+	TreeToArray(root->left, arr, index);
+	arr[*index] = root->data;
+	(*index)++;
+	TreeToArray(root->right, arr, index);
+}
+
+static Node* ArrayToTree(Server** arr, int start, int end) {
+	if (start > end) {
+		return NULL;
+	}
+	int mid = (start + end) / 2;
+	Node* root = new Node(arr[mid]->GetTraffic(), arr[mid]);
+
+	root->left = ArrayToTree(arr, start, mid - 1);
+	root->right = ArrayToTree(arr, mid + 1, end);
+	return root;
+}
+
+Server** MergeServerArrays(Server** arr1, Server** arr2, int size1, int size2) {
+	Server** merged_array = new Server * [size1 + size2];
+	int i = 0, j = 0, k = 0;
+	while (i < size1 && j < size2) {
+		if (compServers(arr1[i], arr2[j]) < 0) {
+			merged_array[k] = arr1[i];
+			i++;
+		}
+		else {
+			merged_array[k] = arr2[j];
+			j++;
+		}
+		k++;
+	}
+	 
+	// if there are more Servers in arr1
+	while (i < size1) {
+		merged_array[k] = arr1[i];
+		i++;
+		k++;
+	}
+	while (j < size2) {
+		merged_array[k] = arr2[j];
+		j++;
+		k++;
+	}
+	return merged_array;
+}
+
 AVLTree::AVLTree() : root(NULL) {}
 
 
@@ -253,8 +304,10 @@ void AVLTree::PrintTree() {
 }
 
 int AVLTree::SumHighestTraffics(int k) {
-	if (k >= root->subtree_size) 
+	if (k >= root->subtree_size)
 		return root->traffic_sum;
+	else if (k == 0)
+		return 0;
 	Node* current = root;
 	int total_sum = 0, total_nodes = 0;
 	while (1) {
@@ -279,4 +332,18 @@ int AVLTree::SumHighestTraffics(int k) {
 	}
 }
 
+AVLTree* MergeTrees(AVLTree* t1, AVLTree* t2) {
+	Server** arr1 = new Server * [t1->GetSize()];
+	Server** arr2 = new Server * [t2->GetSize()];
+	int index1 = 0;
+	int index2 = 0;
+	TreeToArray(t1->root, arr1, &index1);
+	TreeToArray(t2->root, arr2, &index2);
+	Server** merged_arr = MergeServerArrays(arr1, arr2, t1->GetSize(), t2->GetSize());
+	delete[] arr1;
+	delete[] arr2;
+	AVLTree* mergedTree = new AVLTree();
+	mergedTree->root = ArrayToTree(merged_arr, 0, t1->GetSize() + t2->GetSize() - 1);
+	return mergedTree;
+}
 

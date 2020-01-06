@@ -29,6 +29,9 @@ public:
 	void RemoveNode(Server* data);
 	int GetSize();
 	void PrintTree();
+	friend AVLTree* MergeTrees(AVLTree* t1, AVLTree* t2);
 };
+
+AVLTree* MergeTrees(AVLTree* t1, AVLTree* t2);
 
 #endif

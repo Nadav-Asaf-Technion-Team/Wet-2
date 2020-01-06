@@ -16,6 +16,9 @@ public:
 	int GetTraffic();
 	void SetTraffic(int new_traffic);
 	int GetDCID();
+	friend int compServers(Server* s1, Server* s2);
 };
+
+int compServers(Server* s1, Server* s2);
 
 #endif

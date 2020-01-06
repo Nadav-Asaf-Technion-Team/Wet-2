@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include "UnionFind.h"
+#include "DataCenter.h"
 
 using std::cout;
 using std::cin;
@@ -9,6 +10,11 @@ using std::endl;
 template <class T>
 UFNode<T>::UFNode(int ID, T data):
 	father(NULL), ID(ID), size(1), data(data) {
+}
+
+template <class T>
+UFNode<T>::~UFNode(){
+	delete data;
 }
 
 template <class T>
@@ -61,7 +67,7 @@ UFNode<T>* UnionFind<T>::Union(int ID1, int ID2) {
 
 template <class T>
 void UnionFind<T>::insert(int ID, T data) {
-	Find(ID)->data = data;
+	Find(ID - 1)->data = data;
 }
 
 template <class T>
@@ -108,4 +114,4 @@ void UnionFind<T>::print() {
 	delete[] tempArray;
 }
 
-template class UnionFind<int>;
+template class UnionFind<DataCenter*>;

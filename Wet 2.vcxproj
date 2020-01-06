@@ -125,7 +125,10 @@
   <ItemGroup>
     <ClCompile Include="AVL.cpp" />
     <ClCompile Include="DataCenter.cpp" />
+    <ClCompile Include="DCManager.cpp" />
+    <ClCompile Include="DCManager.h" />
     <ClCompile Include="HashTable.cpp" />
+    <ClCompile Include="library2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="UnionFind.cpp" />

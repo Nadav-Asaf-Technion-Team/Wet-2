@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include "HashTable.h"
+#include "Server.h"
 using std::cout;
 using std::endl;
 
@@ -10,7 +11,7 @@ ChainNode<T>::ChainNode(T* data, int ID): data(data),ID(ID), next(NULL), prev(NU
 
 template<class T>
 ChainNode<T>::~ChainNode() {
-	//delete data;
+	delete data;
 }
 
 template <class T>
@@ -177,4 +178,4 @@ void hashTable<T>::print(){
 	cout << "-----------------" << endl;
 }
 
-template class hashTable<int>;
+template class hashTable<Server>;

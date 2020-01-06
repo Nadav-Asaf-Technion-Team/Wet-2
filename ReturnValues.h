@@ -1,6 +1,6 @@
 #ifndef RETURN_VALUES_H_
 #define RETURN_VALUES_H_
 
-enum Status {_SUCCESS = 0, FAILURE = -1, ALLOCATION_ERROR = -2, INVALID_INPUT = -3};
+enum Status {_SUCCESS = 0, _FAILURE = -1, _ALLOCATION_ERROR = -2, _INVALID_INPUT = -3};
 
 #endif // !RETURN_VALUES_H_
