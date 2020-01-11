@@ -93,7 +93,7 @@ AVLTree::AVLTree() : root(NULL) {}
 
 
 static void PostOrderDelete(Node* node) {
-	if (!node) return;
+	if (node == NULL) return;
 	PostOrderDelete(node->left);
 	PostOrderDelete(node->right);
 	delete node;
