@@ -86,7 +86,7 @@ Status DCManager::SetTraffic(int id, int traffic) {
 }
 
 Status DCManager::SumHighestTrafficServers(int DCid, int k, int* sum) {
-	if (k < 0 || DCid < 0 || DCid > UFsize) {
+	if (k < 0 || DCid < 0 || DCid > UFsize || sum == NULL) {
 		return _INVALID_INPUT;
 	}
 

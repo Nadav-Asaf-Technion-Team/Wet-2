@@ -308,6 +308,7 @@ void AVLTree::PrintTree() {
 }
 
 int AVLTree::SumHighestTraffics(int k) {
+	if (root == NULL) return 0;
 	if (k >= root->subtree_size)
 		return root->traffic_sum;
 	else if (k == 0)

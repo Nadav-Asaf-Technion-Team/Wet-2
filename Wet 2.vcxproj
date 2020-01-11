@@ -133,6 +133,7 @@
     <ClCompile Include="library2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main2.cpp" />
+    <ClCompile Include="new_test_main.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="UnionFind.cpp" />
