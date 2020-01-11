@@ -29,8 +29,8 @@ template <class T>
 UnionFind<T>::~UnionFind() {
 	for (int i = 0; i < size; i++) {
 		delete (array[i]);
-		delete[] array;
 	}
+	delete[] array;
 }
 
 template <class T>
